@@ -55,4 +55,4 @@ You can customize the appearance of the loading spinner by editing the CSS style
 
 ## Acknowledgements
 
-This package was inspired by the [shinycssloaders]() package by [Dean Attali](https://daattali.com/).
+This package was inspired by the [shinycssloaders]() package by [Dean Attali](https://deanattali.com/).
