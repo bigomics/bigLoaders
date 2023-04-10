@@ -1,6 +1,6 @@
 # bigLoaders
  
-The bigLoaders package, property of BigOmics Analytics SA, provides a simple way to add custom loading spinners to Shiny apps. It has been designed to work in synchrony with the [omicsplayground](https://github.com/bigomics/omicsplayground) `PlotModule` structure.
+The `bigLoaders` package, property of BigOmics Analytics SA, provides a simple way to add custom loading spinners to Shiny apps. It has been designed to work in synchrony with the [omicsplayground](https://github.com/bigomics/omicsplayground) `PlotModule` structure.
 
 ## Installation
 
@@ -8,12 +8,12 @@ You can install the bigLoaders package from GitHub using the devtools package:
 
 ```
 # install.packages("devtools")
-devtools::install_github("your_username/bigLoaders")
+devtools::install_github("ESCRI11/bigLoaders")
 ```
 
 ## Usage
 
-To use the bigLoaders package, simply add the useSpinner() function to your Shiny app's ui function to add a spinner to any Shiny output object:
+To use the bigLoaders package, simply add the `useSpinner()` function to your Shiny app's ui function to add a spinner to any Shiny output object:
 
 ```
 library(shiny)
@@ -49,8 +49,8 @@ shinyApp(ui, server)
 
 ## Customization
 
-You can customize the appearance of the loading spinner by editing the CSS styles in the spinner.css file in the inst/www directory of the bigLoaders package.
+You can customize the appearance of the loading spinner by editing the CSS styles in the `spinner.css` file in the `inst/www` directory of the `bigLoaders` package.
 
 ## Acknowledgements
 
-This package was inspired by the [shinycssloaders]() package by [Dean Attali](https://deanattali.com/).
+This package was inspired by the [shinycssloaders](https://github.com/daattali/shinycssloaders) package by [Dean Attali](https://deanattali.com/).
