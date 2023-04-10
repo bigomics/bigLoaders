@@ -1,6 +1,6 @@
 # bigLoaders
  
-The bigLoaders package, property of BigOmics Analytics SA, provides a simple way to add custom loading spinners to Shiny apps. It has been designed to work in synchrony with the omicsplayground PlotModule structure.
+The bigLoaders package, property of BigOmics Analytics SA, provides a simple way to add custom loading spinners to Shiny apps. It has been designed to work in synchrony with the [omicsplayground](https://github.com/bigomics/omicsplayground) `PlotModule` structure.
 
 ## Installation
 
@@ -27,26 +27,24 @@ ui <- fluidPage(
       actionButton("run", "Run computation")
     ),
     mainPanel(
-      useSpinner(plotOutput("myplot", width = "100%", height = "400px"))
+      div(
+        style = "height: 400px",
+        useSpinner(plotOutput("myplot", width = "100%", height = "400px"))
+      )
     )
   )
 )
-```
 
-Then, use the sendCustomMessage() function in your Shiny app's server function to show or hide the spinner as needed:
-
-```
 server <- function(input, output, session) {
   output$myplot <- renderPlot({
-    # Show the spinner while the plot is being rendered
-    session$sendCustomMessage("toggleSpinner", list(outputId = "myplot", showSpinner = TRUE))
     req(input$run)
     Sys.sleep(2) # Simulate a long computation
     hist(rnorm(1000))
-    # Hide the spinner once the plot is rendered
-    session$sendCustomMessage("toggleSpinner", list(outputId = "myplot", showSpinner = FALSE))
   })
 }
+
+shinyApp(ui, server)
+
 ```
 
 ## Customization
