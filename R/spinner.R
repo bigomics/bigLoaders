@@ -7,9 +7,6 @@ library(shiny)
 #' @return A modified Shiny output object with a spinner
 #' @export
 useSpinner <- function(output) {
-  outputId <- output$attribs$id
-  ns <- NS(outputId)
-  
   tagList(
     tags$head(
       tags$style(HTML("
@@ -28,41 +25,47 @@ useSpinner <- function(output) {
         }
       ")),
       tags$script(HTML(sprintf("
-        function showSpinner(id, ns) {
-          var fullId = ns ? ns + '-' + id : id;
-          $('#' + fullId + '-spinner').show();
-          $('#' + fullId).hide();
+      function showSpinner() {
+        $('.spinner').show();
+        $('#%s').hide();
+      }
+
+      function hideSpinner() {
+        $('.spinner').hide();
+        $('#%s').show();
+      }
+
+      $(document).on('shiny:outputinvalidated', function(event) {
+        if (event.name === '%s') {
+          showSpinner();
         }
+      });
 
-        function hideSpinner(id, ns) {
-          var fullId = ns ? ns + '-' + id : id;
-          $('#' + fullId + '-spinner').hide();
-          $('#' + fullId).show();
+      $(document).on('shiny:value', function(event) {
+        if (event.name === '%s') {
+          hideSpinner();
         }
-
-        $(document).on('shiny:outputinvalidated', function(event) {
-          var bindingName = event.binding.bindingName;
-          if (bindingName === 'shiny.plotOutputBinding' || bindingName === 'shiny.htmlOutputBinding') {
-            showSpinner(event.name, '%s');
-          }
-        });
-
-        $(document).on('shiny:value', function(event) {
-          var bindingName = event.binding.bindingName;
-          if (bindingName === 'shiny.plotOutputBinding' || bindingName === 'shiny.htmlOutputBinding') {
-            hideSpinner(event.name, '%s');
-          }
-        });
-      ", ns))
-      )),
+      });
+    ", output$attribs$id,
+       output$attribs$id,
+       output$attribs$id,
+       output$attribs$id)))
+    ),
+    # div(
+    #   # style = "position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 400px;",
+    #   style = "position: relative; display: flex; justify-content: center; align-items: center; width: 100%;",
+    #   div(
+    #     id = paste0(output$attribs$id, "-spinner"),
+    #     class = "spinner",
+    #     style = "position: absolute; z-index: 1;"
+    #   ),
+    #   output
+    # )
     div(
-      style = "position: relative; display: flex; justify-content: center; align-items: center;",
-      div(
-        id = paste0(ns, "-", outputId, "-spinner"),
-        class = "spinner",
-        style = "position: absolute; z-index: 1; display: none;"
-      ),
-      output
-    )
+      id = paste0(output$attribs$id, "-spinner"),
+      class = "spinner",
+      style = "position: absolute; z-index: 1; top: calc(50% - 30px); left: calc(50% - 30px);"
+    ),
+    output
   )
 }
