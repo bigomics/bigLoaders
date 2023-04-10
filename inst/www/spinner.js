@@ -1,21 +1,21 @@
-function showSpinner() {
-  $('.spinner').show();
-  $('#%s').hide();
+function showSpinner(id, id_spinner) {
+  $(id_spinner).show();
+  $(id).hide();
 }
 
-function hideSpinner() {
-  $('.spinner').hide();
-  $('#%s').show();
+function hideSpinner(id, id_spinner) {
+  $(id_spinner).hide();
+  $(id).show();
 }
 
 $(document).on('shiny:outputinvalidated', function(event) {
-  if (event.name === '%s') {
-  showSpinner();
-  }
+  showSpinner("#"+event.name, "#"+event.name+"-spinner")
 });
 
 $(document).on('shiny:value', function(event) {
-  if (event.name === '%s') {
-    hideSpinner();
-  }
+  hideSpinner("#"+event.name, "#"+event.name+"-spinner")
+});
+
+$(document).on('shiny:error', function(event) {
+  hideSpinner("#"+event.name, "#"+event.name+"-spinner")
 });
