@@ -8,7 +8,7 @@ You can install the bigLoaders package from GitHub using the devtools package:
 
 ```
 # install.packages("devtools")
-devtools::install_github("ESCRI11/bigLoaders")
+devtools::install_github("bigomics/bigLoaders")
 ```
 
 ## Usage
