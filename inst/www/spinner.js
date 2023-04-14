@@ -1,11 +1,11 @@
 function showSpinner(id, id_spinner) {
   $(id_spinner).show();
-  $(id).hide();
+  $(id).css("visibility", "hidden");
 }
 
 function hideSpinner(id, id_spinner) {
   $(id_spinner).hide();
-  $(id).show();
+  $(id).css("visibility", "inherit");
 }
 
 $(document).on('shiny:outputinvalidated', function(event) {
